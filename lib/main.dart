@@ -18,7 +18,7 @@ class MainApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.darkBackground,
         fontFamily: "Poppins"
       ),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
