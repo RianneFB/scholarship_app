@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:scholarship_app/utils/app_colors.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:scholarship_app/widgets/custom_app_bar.dart';
 import 'package:scholarship_app/screens/login_page.dart';
 import 'package:scholarship_app/screens/search_screen.dart';
 import 'package:scholarship_app/screens/profile_screen.dart';
+import 'package:scholarship_app/screens/home_dashboard.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,46 +19,28 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   late final List<Widget> _screens = [
-    _buildHomeContent(),
+    const HomeDashboard(),
     const SearchScreen(),
     const LoginPage(),
     const ProfileScreen(),
   ];
 
-  Widget _buildHomeContent() {
-    return const SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomAppBar(),
-          SizedBox(height: 25),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              'Welcome to your Scholarship Hub!',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: AppColors.darkBackground,
-        systemNavigationBarColor: AppColors.darkBackground,
-        systemNavigationBarIconBrightness: Brightness.light,
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarColor: Colors.white,
+        systemNavigationBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
-        backgroundColor: AppColors.darkBackground,
+        backgroundColor: Colors.white,
         body: SafeArea(
-          child: _screens[_selectedIndex],
+          child: IndexedStack(
+            index: _selectedIndex,
+            children: _screens,
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex,
@@ -68,9 +50,9 @@ class _HomeScreenState extends State<HomeScreen> {
             });
           },
           type: BottomNavigationBarType.fixed,
-          backgroundColor: AppColors.cardBackground,
-          elevation: 0.5,
-          selectedItemColor: AppColors.contentColorBlue,
+          backgroundColor: Colors.white,
+          elevation: 2,
+          selectedItemColor: const Color(0xFF3980F5),
           unselectedItemColor: AppColors.primaryText,
           showUnselectedLabels: true,
           items: const [
